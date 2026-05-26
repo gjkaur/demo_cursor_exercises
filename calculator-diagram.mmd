@@ -1,26 +1,10 @@
-# Simple Calculator
+# Calculator diagrams
 
-A small menu-driven calculator in C (`calculator.c`).
+Open preview in Cursor: **Ctrl+Shift+V** (Windows) or **Cmd+Shift+V** (Mac) — or right-click → **Open Preview**.
 
-## Build and run
+---
 
-```bash
-gcc calculator.c -o calculator
-./calculator
-```
-
-On Windows:
-
-```bash
-gcc calculator.c -o calculator.exe
-calculator.exe
-```
-
-## Diagrams (Mermaid)
-
-Source file for editors: [`calculator-diagram.mmd`](calculator-diagram.mmd) (paste into [Mermaid Live Editor](https://mermaid.live) if preview is not available).
-
-### 1. Module structure — who calls whom
+## 1. Module structure
 
 ```mermaid
 flowchart TB
@@ -52,7 +36,9 @@ flowchart TB
     main -->|"choice == 5, x,y >= 0, y != 0"| modulo
 ```
 
-### 2. Program flow — one calculation
+---
+
+## 2. Program flow
 
 ```mermaid
 flowchart TD
@@ -88,7 +74,9 @@ flowchart TD
     invalid --> exit
 ```
 
-### 3. Function API (class diagram)
+---
+
+## 3. Function API
 
 ```mermaid
 classDiagram
@@ -124,7 +112,9 @@ classDiagram
     main --> modulo : case 5
 ```
 
-### 4. Sequence — user through main to operation
+---
+
+## 4. Sequence
 
 ```mermaid
 sequenceDiagram
@@ -155,24 +145,3 @@ sequenceDiagram
     op-->>main: result
     main-->>User: Result printed
 ```
-
-Arithmetic functions are **leaf nodes** — they do not call each other or other project functions.
-
-Modulo (choice 5) returns the integer remainder `x % y` for non-negative operands only.
-
-## Functions
-
-| Function   | Called by | Calls (project) | Input              | Output        |
-|-----------|-----------|-----------------|--------------------|---------------|
-| `main`    | (runtime) | `add`, `subtract`, `multiply`, `divide`, `modulo` | stdin: choice, x, y | stdout, exit code `0` |
-| `add`     | `main`    | none            | `int a`, `int b`   | `int` sum     |
-| `subtract`| `main`    | none            | `int a`, `int b`   | `int` difference |
-| `multiply`| `main`    | none            | `int a`, `int b`   | `int` product |
-| `divide`  | `main`    | none            | `int a`, `int b`   | `int` quotient (integer division) |
-| `modulo`  | `main`    | none            | `int a`, `int b` (non-negative, `b != 0`) | `int` remainder (`a % b`) |
-
-Arithmetic helpers are **leaf functions**: they do not call each other or other project functions. All user interaction and routing live in `main`.
-
-## External dependencies
-
-- **stdio.h** — `printf`, `scanf` (used only from `main`)

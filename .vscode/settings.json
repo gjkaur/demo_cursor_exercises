@@ -1,0 +1,9 @@
+{
+  "markdown.mermaid.enabled": true,
+  "files.associations": {
+    "*.mmd": "markdown"
+  },
+  "workbench.editorAssociations": {
+    "*.mmd": "vscode.markdown.preview.editor"
+  }
+}

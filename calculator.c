@@ -5,6 +5,7 @@ int add(int a, int b);
 int subtract(int a, int b);
 int multiply(int a, int b);
 int divide(int a, int b);
+int modulo(int a, int b);
 
 int main() {
     int choice, x, y, result;
@@ -14,6 +15,7 @@ int main() {
     printf("2. Subtract\n");
     printf("3. Multiply\n");
     printf("4. Divide\n");
+    printf("5. Modulo (remainder)\n");
     printf("Enter choice: ");
     scanf("%d", &choice);
 
@@ -41,6 +43,16 @@ int main() {
                 printf("Error: Division by zero\n");
             }
             break;
+        case 5:
+            if (x < 0 || y < 0) {
+                printf("Error: Modulo requires non-negative operands\n");
+            } else if (y == 0) {
+                printf("Error: Modulo by zero\n");
+            } else {
+                result = modulo(x, y);
+                printf("Result: %d\n", result);
+            }
+            break;
         default:
             printf("Invalid choice\n");
     }
@@ -62,4 +74,8 @@ int multiply(int a, int b) {
 
 int divide(int a, int b) {
     return a / b;
+}
+
+int modulo(int a, int b) {
+    return a % b;
 }
