@@ -66,10 +66,18 @@ if ($LASTEXITCODE -ne 0) { Write-Err 'git commit failed' }
 $branch = git rev-parse --abbrev-ref HEAD
 if ($LASTEXITCODE -ne 0) { Write-Err 'Could not determine current branch' }
 
+$prevEap = $ErrorActionPreference
+$ErrorActionPreference = 'Continue'
 git push origin $branch 2>&1 | ForEach-Object {
-    if ($_ -match 'https?://|@.*:') { 'push output suppressed (remote details hidden)' }
-    else { $_ }
+    $line = "$_"
+    if ($line -match 'https?://|@[\w.-]+:') {
+        'push output suppressed (remote details hidden)'
+    } else {
+        $line
+    }
 }
-if ($LASTEXITCODE -ne 0) { Write-Err 'git push failed' }
+$pushExit = $LASTEXITCODE
+$ErrorActionPreference = $prevEap
+if ($pushExit -ne 0) { Write-Err 'git push failed' }
 
 Write-Host "Committed and pushed on branch: $branch"
